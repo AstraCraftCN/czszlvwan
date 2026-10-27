@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>重装上阵玩家社区丨绿玩营地</title>
+<meta name="description" content="重装上阵绿色玩家自发组成的非盈利公益性质社区，力求于营造一个优质、有秩序且公平的游戏环境">
+<meta name="theme-color" content="#F6F6F7">
+<script>
+(function () {
+  var sc = new URLSearchParams(location.search).get('sharecode') || '';
+  var l = document.createElement('link');
+  l.rel = 'icon'; l.type = 'image/png';
+  l.href = 'favicon.png' + (sc ? '?sharecode=' + encodeURIComponent(sc) : '');
+  document.head.appendChild(l);
+})();
+</script>
+<style>
+  :root {
+    --bg: #F6F6F7;
+    --text: #141418;
+    --muted: rgba(20, 20, 24, .60);
+    --faint: rgba(20, 20, 24, .38);
+    --panel: rgba(255, 255, 255, .72);
+    --panel-hi: rgba(255, 255, 255, .96);
+    --border: rgba(20, 20, 35, .075);
+    --border-hi: rgba(20, 20, 35, .16);
+    --blue: #2C7BD0;
+    --violet: #6A4BD6;
+    --serif: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "SimSun", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, Menlo, monospace;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --ease-soft: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0; min-height: 100vh; color: var(--text);
+    background:
+      radial-gradient(62vw 62vw at 4% -10%, rgba(96, 170, 255, .22), transparent 62%),
+      radial-gradient(54vw 54vw at 104% 24%, rgba(140, 100, 255, .17), transparent 64%),
+      radial-gradient(48vw 48vw at 18% 112%, rgba(96, 190, 255, .13), transparent 66%),
+      var(--bg);
+    font-family: var(--sans);
+    display: flex; align-items: center; justify-content: center;
+    padding: 56px 22px;
+    overflow-x: hidden;
+  }
+
+  .field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; will-change: transform; }
+  .b1 {
+    width: 52vw; height: 52vw; min-width: 420px; min-height: 420px;
+    top: -18%; left: -16%;
+    background: radial-gradient(circle, rgba(96, 170, 255, .26), rgba(96, 170, 255, .07) 45%, transparent 68%);
+    animation: drift1 26s var(--ease-soft) infinite;
+  }
+  .b2 {
+    width: 46vw; height: 46vw; min-width: 380px; min-height: 380px;
+    bottom: -20%; right: -16%;
+    background: radial-gradient(circle, rgba(140, 100, 255, .22), rgba(140, 100, 255, .06) 46%, transparent 70%);
+    animation: drift2 32s var(--ease-soft) infinite;
+  }
+  .b3 {
+    width: 38vw; height: 38vw; min-width: 300px; min-height: 300px;
+    top: 42%; left: 56%;
+    background: radial-gradient(circle, rgba(96, 190, 255, .14), transparent 66%);
+    animation: drift3 22s var(--ease-soft) infinite;
+  }
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(4vw, 5vh) scale(1.08); }
+  }
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-5vw, -4vh) scale(1.06); }
+  }
+  @keyframes drift3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-3vw, -6vh) scale(1.10); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob { animation: none; }
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+
+  main {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 460px;
+    text-align: left;
+  }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 28px; align-items: center; margin-bottom: 32px;
+  }
+  @media (min-width: 980px) {
+    main { max-width: 1120px; }
+    .hero-grid { grid-template-columns: 1fr 1.08fr; gap: 56px; margin-bottom: 44px; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); animation: reveal .95s var(--ease-out) forwards; }
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: .08s; }
+  .d2 { animation-delay: .18s; }
+  .d3 { animation-delay: .30s; }
+  .d4 { animation-delay: .44s; }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 38px; font-weight: 600; line-height: 1.15;
+    letter-spacing: .02em; margin: 0;
+  }
+  .logo {
+    display: block; width: 268px; max-width: 74%; height: auto;
+    margin: 14px 0 26px;
+    filter: drop-shadow(0 1px 2px rgba(20, 30, 60, .28)) drop-shadow(0 0 1px rgba(20, 30, 60, .35));
+  }
+
+  .slogan {
+    font-family: var(--serif);
+    font-size: 20px; line-height: 1.8; color: var(--text);
+    margin: 0 0 32px; letter-spacing: .03em;
+  }
+  .slogan span { display: block; }
+  .slogan em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--blue), var(--violet));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
+  .hero-right {
+    position: relative;
+    border-radius: 20px;
+  }
+  .hero-art {
+    position: absolute;
+    left: -13%;
+    bottom: -8%;
+    width: 106%;
+    z-index: 3;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 96% 96% at 52% 58%, #000 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse 96% 96% at 52% 58%, #000 62%, transparent 100%);
+  }
+  .carousel-wrap { position: relative; z-index: 2; margin: 0 0 32px; }
+  .carousel {
+    position: relative; height: 226px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  }
+  .stage { position: relative; width: 100%; height: 100%; perspective: 1100px; }
+  .slide {
+    position: absolute; top: 50%; left: 50%;
+    width: 336px; aspect-ratio: 16 / 9;
+    border-radius: 14px; overflow: hidden;
+    background: #E9E9EE;
+    box-shadow: 0 2px 6px rgba(20,20,40,.07), 0 14px 34px rgba(20,20,40,.11);
+    transition:
+      transform .72s var(--ease-out),
+      opacity .72s var(--ease-out),
+      box-shadow .72s var(--ease-out),
+      filter .72s var(--ease-out);
+    cursor: pointer; will-change: transform, opacity;
+    transform-origin: center center;
+    filter: brightness(.68) saturate(.5);
+  }
+  .slide.center { filter: brightness(1) saturate(1); }
+  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide .cap {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 26px 13px 10px;
+    background: linear-gradient(180deg, transparent, rgba(8,10,20,.8));
+    color: #fff; font-size: 12px; line-height: 1.45;
+    opacity: 0; transition: opacity .55s var(--ease-soft);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .slide.center .cap { opacity: 1; }
+  .slide .play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .5s var(--ease-soft);
+  }
+  .slide.center .play { opacity: 1; }
+  .slide .play span {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(255,255,255,.94);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,.22);
+    transition: transform .5s var(--ease-soft);
+  }
+  .slide.center:hover .play span { transform: scale(1.1); }
+  .slide .play svg { width: 16px; height: 16px; fill: #16161A; margin-left: 2px; }
+
+  .nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%; padding: 0;
+    background: rgba(255,255,255,.92); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 20;
+    box-shadow: 0 2px 8px rgba(20,20,40,.1);
+    transition: transform .4s var(--ease-soft), box-shadow .4s var(--ease-soft), background .3s;
+  }
+  .nav:hover { background: #fff; box-shadow: 0 5px 16px rgba(20,20,40,.16); transform: translateY(-50%) scale(1.08); }
+  .nav svg { width: 15px; height: 15px; stroke: var(--text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .nav.prev { left: -4px; }
+  .nav.next { right: -4px; }
+
+  .dots { display: flex; justify-content: center; gap: 7px; margin-top: 16px; }
+  .dots i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(20,20,30,.16); cursor: pointer;
+    transition: background .4s var(--ease-soft), transform .4s var(--ease-soft);
+  }
+  .dots i.on { background: var(--blue); transform: scale(1.3); }
+
+  .modal {
+    position: fixed; inset: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background: rgba(10, 12, 22, .84);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s var(--ease-soft);
+  }
+  .modal.on { opacity: 1; pointer-events: auto; }
+  .modal-box {
+    position: relative;
+    width: min(1000px, 94vw); aspect-ratio: 16 / 9;
+    background: #000; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+    transform: scale(.955);
+    transition: transform .42s var(--ease-out);
+  }
+  .modal.on .modal-box { transform: scale(1); }
+  .modal-frame, .modal-frame iframe {
+    width: 100%; height: 100%; border: 0; display: block;
+  }
+  /* ---- App 下载弹窗 ---- */
+  .dlg {
+    position: fixed; inset: 0; z-index: 60;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    background: rgba(18, 20, 28, .42);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .38s var(--ease-soft);
+  }
+  .dlg.on { opacity: 1; pointer-events: auto; }
+
+  .dlg-box {
+    position: relative; width: min(440px, 100%);
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid rgba(255, 255, 255, .88);
+    border-radius: 22px;
+    padding: 34px 26px 24px;
+    backdrop-filter: blur(34px) saturate(1.9);
+    -webkit-backdrop-filter: blur(34px) saturate(1.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .98),
+      inset 0 -1px 0 rgba(255, 255, 255, .45),
+      0 30px 80px rgba(18, 20, 30, .28);
+    transform: translateY(18px) scale(.97);
+    transition: transform .44s var(--ease-out);
+  }
+  .dlg.on .dlg-box { transform: translateY(0) scale(1); }
+
+  .dlg-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, .6); border: 1px solid rgba(255, 255, 255, .8);
+    color: var(--muted); cursor: pointer;
+    transition: background .3s, transform .3s;
+  }
+  .dlg-close:hover { background: #fff; transform: rotate(90deg); }
+  .dlg-close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+
+  .dlg-kicker {
+    display: block; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .24em; color: var(--faint); margin-bottom: 9px;
+  }
+  .dlg-head h3 {
+    font-family: var(--serif); font-size: 23px; font-weight: 600;
+    letter-spacing: .03em; margin: 0 0 7px; color: var(--text);
+  }
+  .dlg-head p { font-size: 12.5px; color: var(--muted); margin: 0 0 22px; line-height: 1.65; }
+
+  .dlg-list { display: flex; flex-direction: column; gap: 9px; }
+
+  .dlg-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 15px; border-radius: 14px; text-decoration: none;
+    background: rgba(255, 255, 255, .55);
+    border: 1px solid rgba(255, 255, 255, .8);
+    backdrop-filter: blur(16px) saturate(1.6);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 2px 8px rgba(20, 20, 40, .04);
+    transition: transform .3s var(--ease-soft), background .3s, box-shadow .3s;
+  }
+  .dlg-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, .85);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 10px 26px rgba(20, 20, 40, .1);
+  }
+  .dlg-tag {
+    flex: 0 0 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center;
+    color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: .02em;
+    box-shadow: 0 3px 10px rgba(20, 20, 40, .16);
+  }
+  .dlg-info { flex: 1; min-width: 0; text-align: left; }
+  .dlg-info b { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .dlg-info i { display: block; font-style: normal; font-size: 11.5px; color: var(--faint); }
+  .dlg-arrow {
+    flex: 0 0 auto; color: var(--faint); font-size: 15px;
+    transition: transform .3s var(--ease-soft), color .3s;
+  }
+  .dlg-item:hover .dlg-arrow { transform: translateX(3px); color: var(--text); }
+
+  .dlg-foot {
+    margin: 18px 0 0; font-size: 11px; line-height: 1.7;
+    color: var(--faint); text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .dlg-box { padding: 28px 18px 18px; border-radius: 18px; }
+    .dlg-head h3 { font-size: 20px; }
+  }
+
+  .modal-close {    position: absolute; top: 10px; right: 10px; z-index: 2;
+    width: 34px; height: 34px; padding: 0; border-radius: 50%;
+    background: rgba(20, 22, 34, .62); border: 1px solid rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; backdrop-filter: blur(8px);
+    transition: background .3s, transform .3s var(--ease-soft);
+  }
+  .modal-close:hover { background: rgba(20, 22, 34, .86); transform: scale(1.08); }
+  .modal-close svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+  @media (max-width: 640px) {
+    .carousel { height: 186px; }
+    .slide { width: 258px; border-radius: 12px; }
+    .slide .cap { font-size: 11px; padding: 20px 10px 8px; }
+    .slide .play span { width: 38px; height: 38px; }
+    .nav { width: 28px; height: 28px; }
+    .nav.prev { left: 0; }
+    .nav.next { right: 0; }
+  }
+
+  .rule {
+    height: 1px; width: 100%; margin: 0 0 24px;    background: linear-gradient(90deg, transparent, rgba(20,20,35,.12) 30%, rgba(20,20,35,.12) 70%, transparent);
+    transform: scaleX(0); transform-origin: center;
+    animation: ruleIn 1.1s var(--ease-out) .34s forwards;
+  }
+  @keyframes ruleIn { to { transform: scaleX(1); } }
+
+  .entries-wrap { position: relative; }
+  .fig { display: none; position: absolute; z-index: 0; pointer-events: none; }
+
+  .ico img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .entries {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+  }
+  @media (min-width: 640px) {
+    .entries { grid-template-columns: 1fr 1fr; }
+    .entries > .entry:last-child { grid-column: 1 / -1; }
+    main { max-width: 660px; }
+  }
+  @media (min-width: 900px) {
+    main { max-width: 680px; }
+    h1 { font-size: 48px; }
+    .slogan { font-size: 24px; }
+    .entry { padding: 16px 20px; }
+    .label b { font-size: 16px; }
+  }
+
+  .entry {
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px;
+    background: rgba(255, 255, 255, .60);
+    border: 1px solid rgba(255, 255, 255, .78);
+    border-radius: 16px;
+    text-decoration: none; color: var(--text);
+    backdrop-filter: blur(26px) saturate(1.85);
+    -webkit-backdrop-filter: blur(26px) saturate(1.85);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .95),
+      inset 0 -1px 0 rgba(255, 255, 255, .38),
+      inset 1px 0 0 rgba(255, 255, 255, .5),
+      inset -1px 0 0 rgba(255, 255, 255, .5),
+      0 1px 2px rgba(20, 20, 40, .04),
+      0 10px 28px rgba(20, 20, 40, .07);
+    transition:
+      transform .5s var(--ease-soft),
+      box-shadow .5s var(--ease-soft),
+      border-color .5s var(--ease-soft),
+      background .5s var(--ease-soft);
+    overflow: hidden;
+  }
+  .entry::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(102deg, rgba(44,123,208,.07), rgba(106,75,214,.07));
+    opacity: 0; transition: opacity .5s var(--ease-soft);
+  }
+  .entry:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, .70);
+    border-color: rgba(255, 255, 255, .95);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(255, 255, 255, .48),
+      0 2px 5px rgba(20, 20, 40, .05),
+      0 18px 40px rgba(20, 20, 40, .10);
+  }
+  .entry:hover::before { opacity: 1; }
+  .entry:active { transform: translateY(-1px) scale(.995); transition-duration: .12s; }
+
+  .ico {
+    position: relative; flex: 0 0 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    background: rgba(20, 20, 30, .045);
+    transition: transform .5s var(--ease-soft), background .5s var(--ease-soft);
+  }
+  .entry:hover .ico { transform: scale(1.08) rotate(-3deg); background: rgba(44, 123, 208, .12); }
+  .ico svg { width: 17px; height: 17px; stroke: var(--text); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .entry:hover .ico svg { stroke: var(--blue); }
+
+  .label { position: relative; flex: 1; text-align: left; }
+  .label b { display: block; font-size: 16px; font-weight: 600; letter-spacing: .01em; }
+  .label i {
+    display: block; font-style: normal; font-size: 12px;
+    color: var(--faint); margin-top: 4px; letter-spacing: .02em;
+  }
+  .arrow {
+    position: relative; flex: 0 0 auto; color: var(--faint);
+    transition: transform .5s var(--ease-soft), color .5s var(--ease-soft);
+  }
+  .arrow svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .entry:hover .arrow { transform: translateX(3px); color: var(--blue); }
+
+  .entry.primary {
+    background: rgba(255, 255, 255, .60);
+    border-color: rgba(255, 255, 255, .78);
+    color: var(--text);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .95),
+      inset 0 -1px 0 rgba(255, 255, 255, .38),
+      0 1px 2px rgba(20, 20, 40, .04),
+      0 10px 28px rgba(20, 20, 40, .07);
+  }
+  .entry.primary .ico { background: rgba(20, 20, 30, .045); }
+  .entry.primary .ico img { filter: none; }
+  .entry.primary .label i { color: var(--faint); }
+  .entry.primary .arrow { color: var(--faint); }
+  .entry.primary:hover {
+    background: rgba(255, 255, 255, .70);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 2px 5px rgba(20, 20, 40, .05),
+      0 18px 40px rgba(20, 20, 40, .10);
+  }
+  .entry.primary::before { display: none; }
+
+  .entry.soon { opacity: .62; }
+  .entry.soon:hover {
+    transform: none;
+    background: rgba(255, 255, 255, .52);
+    border-color: rgba(255, 255, 255, .72);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .95),
+      0 1px 2px rgba(20, 20, 40, .04),
+      0 10px 28px rgba(20, 20, 40, .07);
+  }
+  .entry.soon .arrow { display: none; }
+  .entry.primary.soon {
+    background: rgba(255, 255, 255, .52); border-color: rgba(255, 255, 255, .72);
+    color: var(--text); box-shadow: 0 1px 2px rgba(20,20,40,.04);
+  }
+  .entry.primary.soon .ico { background: rgba(20, 20, 30, .045); }
+  .entry.primary.soon .ico svg { stroke: var(--text); }
+  .entry.primary.soon .label i { color: var(--faint); }
+
+  footer { margin-top: 32px; }
+
+  .footlinks {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap;
+  }
+  .footlinks a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 12.5px; color: var(--muted); text-decoration: none;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, .75);
+    backdrop-filter: blur(14px) saturate(1.6);
+    -webkit-backdrop-filter: blur(14px) saturate(1.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 2px 8px rgba(20, 20, 40, .04);
+    transition: transform .35s var(--ease-soft), color .35s, background .35s, box-shadow .35s, border-color .35s;
+  }
+  .footlinks a svg {
+    width: 14px; height: 14px; fill: none; stroke: currentColor;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+    opacity: .75;
+  }
+  .footlinks a:hover {
+    transform: translateY(-2px);
+    color: var(--text);
+    background: rgba(255, 255, 255, .78);
+    border-color: rgba(255, 255, 255, .95);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 8px 22px rgba(20, 20, 40, .08);
+  }
+  .footlinks a:hover svg { opacity: 1; }
+
+  @media (max-width: 380px) {
+    h1 { font-size: 30px; }
+    .slogan { font-size: 18px; }
+  }
+
+  /* 宽屏覆盖：必须放在所有基础定义之后 */
+  @media (min-width: 980px) {
+    body { padding: 72px 40px; }
+    main { max-width: 1280px; }
+    .hero-grid { gap: 76px; margin-bottom: 56px; }
+    h1 { font-size: 64px; white-space: nowrap; letter-spacing: .015em; }
+    .logo { width: 372px; max-width: none; margin: 18px 0 32px; }
+    .slogan { font-size: 30px; line-height: 1.75; margin-bottom: 0; }
+    .carousel { height: 352px; }
+    .slide { width: 480px; border-radius: 16px; }
+    .slide .cap { font-size: 13px; padding: 30px 16px 12px; }
+    .entries-wrap { max-width: 1060px; margin: 0 auto; }
+    .entries { max-width: none; gap: 16px; }
+    .entry { padding: 22px 26px; border-radius: 18px; gap: 16px; }
+    .ico { flex: 0 0 40px; height: 40px; border-radius: 11px; }
+    .label b { font-size: 17px; }
+    .label i { font-size: 13px; margin-top: 5px; }
+    .arrow svg { width: 17px; height: 17px; }
+    .dots { margin-top: 20px; gap: 9px; }
+    .dots i { width: 7px; height: 7px; }
+    footer { margin-top: 40px; font-size: 12.5px; }
+    .rule { margin-bottom: 32px; }
+  }
+
+  /* 立绘：随视口自适应缩放，磨砂玻璃保证不遮字 */
+  .fig {
+    display: block;
+    position: absolute; z-index: 0; pointer-events: none;
+    width: clamp(132px, 15vw, 236px);
+    opacity: .94;
+    -webkit-mask-image: radial-gradient(ellipse 94% 94% at 50% 50%, #000 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 94% 94% at 50% 50%, #000 70%, transparent 100%);
+  }
+  .f1 { left: -12%; top: -62px; }
+  .f2 { right: -11.5%; top: -42px; }
+  .f3 { left: -11%; bottom: -56px; }
+  .f4 { right: -12%; bottom: -48px; }
+
+  @media (max-width: 900px) {
+    .fig { width: clamp(104px, 26vw, 148px); opacity: .55; }
+    .f1 { left: -24%; top: -18px; }
+    .f2 { right: -22%; top: -12px; }
+    .f3 { left: -22%; bottom: -16px; }
+    .f4 { right: -24%; bottom: -14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="field">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<main>
+  <div class="hero-grid">
+    <div class="hero-left reveal d1">
+      <h1>重装绿玩营地</h1>
+      <img class="logo" id="logoImg" alt="ASTRACRAFT · 重装上阵绿色玩家营地" />
+      <p class="slogan">
+        <span><em>反对</em>外挂</span>
+        <span><em>反对</em>破坏公平游戏体验</span>
+      </p>
+    </div>
+
+    <div class="hero-right reveal d2">
+      <div class="carousel-wrap">
+        <div class="carousel" id="carousel">
+          <div class="stage" id="stage"></div>
+        </div>
+        <button class="nav prev" id="navPrev" aria-label="上一个">
+          <svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>
+        </button>
+        <button class="nav next" id="navNext" aria-label="下一个">
+          <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <div class="dots" id="dots"></div>
+      </div>
+      <img class="hero-art" id="heroArt" alt="" />
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="entries-wrap reveal d3">
+    <img class="fig f1" id="fig1" alt="" />
+    <img class="fig f2" id="fig2" alt="" />
+    <img class="fig f3" id="fig3" alt="" />
+    <img class="fig f4" id="fig4" alt="" />
+
+    <div class="entries">
+      <a class="entry" id="linkApp" href="#">
+        <span class="ico"><img id="icoApp" alt="" /></span>
+        <span class="label"><b>下载 App</b><i id="appNote">获得完整的体验</i></span>
+        <span class="arrow"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="entry primary" id="linkWeb" href="#">
+        <span class="ico"><img id="icoWeb" alt="" /></span>
+        <span class="label"><b>跳转至网页版</b><i>无需安装，浏览器直接用</i></span>
+        <span class="arrow"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="entry" id="linkGroup" href="#">
+        <span class="ico"><img id="icoChat" alt="" /></span>
+        <span class="label"><b>社区群聊</b><i id="groupNote">重装绿玩营地欢迎您！</i></span>
+        <span class="arrow"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="entry" id="linkTieba" href="#">
+        <span class="ico"><img id="icoTieba" alt="" /></span>
+        <span class="label"><b>重装贴吧</b><i>支援8u，砥砺热吧</i></span>
+        <span class="arrow"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="entry" id="linkChannel" href="#">
+        <span class="ico"><img id="icoChannel" alt="" /></span>
+        <span class="label"><b>重装频道</b><i id="channelNote">重装最大的QQ频道</i></span>
+        <span class="arrow"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <footer class="reveal d4">
+    <div class="rule"></div>
+    <nav class="footlinks">
+      <a href="charter.html">
+        <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7"/><path d="M9 16h5"/></svg>
+        <span>营地总纲</span>
+      </a>
+      <a href="https://czsz.163.com/index.html" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>
+        <span>重装上阵官网</span>
+      </a>
+      <a href="https://space.bilibili.com/690424907" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="m7 3 3 4"/><path d="m17 3-3 4"/></svg>
+        <span>站长 B 站</span>
+      </a>
+    </nav>
+  </footer>
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-frame" id="modalFrame"></div>
+  </div>
+</div>
+
+<!-- App 下载渠道 -->
+<div class="dlg" id="dlg">
+  <div class="dlg-box">
+    <button class="dlg-close" id="dlgClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="dlg-head">
+      <span class="dlg-kicker">DOWNLOAD</span>
+      <h3>获得完整的体验</h3>
+      <p>悬浮窗实时提醒，游戏里直接审批，不用切出来</p>
+    </div>
+
+    <div class="dlg-list" id="dlgList"></div>
+
+    <p class="dlg-foot">
+      安装后请在系统设置里允许「显示在其他应用上层」，否则悬浮窗出不来
+    </p>
+  </div>
+</div>
+
+<script>
+const LINKS = {
+  app: '',          // 已改用下面的 downloads 列表
+  group: 'https://qun.qq.com/universal-share/share?ac=1&authKey=40oOvoE3VxF60GrDIjeuKZeoXHI5DVfwwLilYNcW0UHY60DigdAU%2BXRy6jdVNYMV&busi_data=eyJncm91cENvZGUiOiIxMDk3MjY5NzI5IiwidG9rZW4iOiJKRVJBR1FXTGsxd2I1YlNud2s4SHI5cUQvMGlRcUFCMnVndU0zNnNjbmVjSWFBR1lCTGlvdmEzc2RjaHdnTHd4IiwidWluIjoiMjA3MDY0MzA4MCJ9&data=lxT_Qcucfx_XO5xvZmcjWNg31uaILkS_WC5iEwJ_d2xklGLj9eaC0PwLEAPG8Sz77HmORWATHXVAhrifLxm3EQ&svctype=4&tempid=h5_group_info',
+  tieba: 'https://tieba.baidu.com/f?kw=%E9%87%8D%E8%A3%85%E4%B8%8A%E9%98%B5',
+  channel: 'https://pd.qq.com/s/8isyqg3gw?b=9',
+}
+
+// App 下载渠道
+const DOWNLOADS = [
+  {
+    name: '夸克网盘',
+    hint: '推荐 · 下载不限速',
+    url: 'https://pan.quark.cn/s/c02cb3c1b857',
+    tag: '夸克',
+    color: '#3B7FE8',
+  },
+  {
+    name: '123 云盘',
+    hint: '备用 · 直接下载',
+    url: 'https://1815559219.share.123pan.cn/123pan/1LLiVv-cfrn3',
+    tag: '123',
+    color: '#E8893B',
+  },
+  {
+    name: '百度网盘',
+    hint: '需要客户端',
+    url: 'https://pan.baidu.com/s/5Vy-wCwlgbOHQlRJ7xXkIxQ',
+    tag: '百度',
+    color: '#2D6FE0',
+  },
+]
+
+const $ = (id) => document.getElementById(id)
+const sc = () => new URLSearchParams(location.search).get('sharecode') || ''
+const asset = (p) => p + (sc() ? '?sharecode=' + encodeURIComponent(sc()) : '')
+
+// 素材挂载
+;(function mountArt() {
+  const map = {
+    logoImg: '/img/logo.png',
+    icoApp: '/img/icons/app.png',
+    icoWeb: '/img/icons/web.png',
+    icoChat: '/img/icons/chat.png',
+    icoTieba: '/img/icons/tieba.png',
+    icoChannel: '/img/icons/channel.png',
+    fig1: '/img/figures/f1.png',
+    fig2: '/img/figures/f2.png',
+    fig3: '/img/figures/f3.png',
+    fig4: '/img/figures/f4.png',
+  }
+  for (const id in map) {
+    const el = document.getElementById(id)
+    if (el) el.src = asset(map[id])
+  }
+})()
+
+function need(id, note) {
+  const el = $(id)
+  el.classList.add('soon')
+  el.setAttribute('aria-disabled', 'true')
+  el.href = 'javascript:void(0)'
+  if (note) $(note).textContent = '即将开放'
+}
+
+// 网页版：有 sharecode 就带上，没有就直接进根路径（根路径就是大厅页）
+const web = $('linkWeb')
+web.href = 'https://greenplay.app.workbuddy.host/?sharecode=FRWWYNBXHN'
+
+// 下载 App → 弹出渠道选择
+$('linkApp').addEventListener('click', (e) => {
+  e.preventDefault()
+  openDownloads()
+})
+
+if (LINKS.group) $('linkGroup').href = LINKS.group
+else need('linkGroup', 'groupNote')
+
+$('linkTieba').href = LINKS.tieba
+
+if (LINKS.channel) $('linkChannel').href = LINKS.channel
+else need('linkChannel', 'channelNote')
+
+// 鼠标位置驱动的极淡光晕（桌面端）
+if (window.matchMedia('(pointer: fine)').matches) {
+  const field = document.querySelector('.field')
+  let raf = null, cx = 0, cy = 0
+  window.addEventListener('pointermove', (e) => {
+    cx = e.clientX; cy = e.clientY
+    if (raf) return
+    raf = requestAnimationFrame(() => {
+      field.style.setProperty('--mx', cx + 'px')
+      field.style.setProperty('--my', cy + 'px')
+      raf = null
+    })
+  }, { passive: true })
+}
+
+// ---------- 视频轮播 ----------
+const VIDEOS = [
+  {
+    img: '/img/covers/c1.jpg',
+    title: '【重装上阵】外挂风暴的避风港 —— 绿玩营地开张！',
+    bvid: 'BV1ADam64ExT',
+    aid: 117369846499814,
+    cid: 42390062430,
+    url: 'https://www.bilibili.com/video/BV1ADam64ExT',
+  },
+  {
+    img: '/img/covers/c2.jpg',
+    title: '被外挂骚扰？欢迎来到绿玩营地！',
+    bvid: 'BV1Y4a16PEA8',
+    aid: 117369343052432,
+    cid: 42387308576,
+    url: 'https://www.bilibili.com/video/BV1Y4a16PEA8',
+  },
+  {
+    img: '/img/covers/c3.jpg',
+    title: '关于虫子绿玩群主滑稽王是否开挂一事',
+    bvid: 'BV186Jq6uEv5',
+    aid: 117457607988917,
+    cid: 42829415443,
+    url: 'https://www.bilibili.com/video/BV186Jq6uEv5',
+  },
+]
+
+function openPlayer(i) {
+  const v = VIDEOS[i]
+  if (!v) return
+  const src = 'https://player.bilibili.com/player.html?isOutside=true'
+    + '&bvid=' + v.bvid
+    + '&aid=' + v.aid
+    + '&cid=' + v.cid
+    + '&p=1&autoplay=1&high_quality=1&danmaku=1'
+  $('modalFrame').innerHTML =
+    '<iframe src="' + src + '" allowfullscreen scrolling="no" frameborder="0" '
+    + 'allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+  $('modal').classList.add('on')
+  document.body.style.overflow = 'hidden'
+}
+
+function closePlayer() {
+  const modal = $('modal')
+  modal.classList.remove('on')
+  document.body.style.overflow = ''
+  setTimeout(() => { $('modalFrame').innerHTML = '' }, 400)
+}
+
+$('modalClose').addEventListener('click', closePlayer)
+$('modal').addEventListener('click', (e) => { if (e.target === $('modal')) closePlayer() })
+
+// ---- 下载渠道弹窗 ----
+function openDownloads() {
+  const list = $('dlgList')
+  if (list && !list.childElementCount) {
+    list.innerHTML = DOWNLOADS.map((d) => `
+      <a class="dlg-item" href="${d.url}" target="_blank" rel="noopener">
+        <span class="dlg-tag" style="background:${d.color}">${d.tag}</span>
+        <span class="dlg-info"><b>${d.name}</b><i>${d.hint}</i></span>
+        <span class="dlg-arrow">→</span>
+      </a>`).join('')
+  }
+  $('dlg').classList.add('on')
+  document.body.style.overflow = 'hidden'
+}
+
+function closeDownloads() {
+  $('dlg').classList.remove('on')
+  document.body.style.overflow = ''
+}
+
+$('dlgClose').addEventListener('click', closeDownloads)
+$('dlg').addEventListener('click', (e) => { if (e.target === $('dlg')) closeDownloads() })
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePlayer() })
+
+let cur = 0
+const stageEl = $('stage')
+const dotsEl = $('dots')
+
+function layoutSlides() {
+  const n = VIDEOS.length
+  stageEl.querySelectorAll('.slide').forEach((el) => {
+    const i = Number(el.dataset.i)
+    let d = i - cur
+    if (d > n / 2) d -= n
+    if (d < -n / 2) d += n
+
+    const abs = Math.abs(d)
+    const wide = window.innerWidth >= 980
+    const gap1 = wide ? 156 : (window.innerWidth >= 640 ? 148 : 96)
+    const gap2 = wide ? 340 : (window.innerWidth >= 640 ? 250 : 170)
+    let tx = 0, ry = 0, sc = 1, op = 1, z = 1
+    if (abs === 0) { tx = 0; ry = 0; sc = 1; op = 1; z = 30 }
+    else if (abs === 1) { tx = d * gap1; ry = -d * 30; sc = wide ? .72 : .7; op = 1; z = 20 }
+    else { tx = d * gap2; ry = -d * 36; sc = .54; op = 0; z = 10 }
+
+    el.style.transform = `translate(calc(-50% + ${tx}px), -50%) rotateY(${ry}deg) scale(${sc})`
+    el.style.opacity = op
+    el.style.zIndex = z
+    el.classList.toggle('center', abs === 0)
+  })
+  dotsEl.querySelectorAll('i').forEach((d, i) => d.classList.toggle('on', i === cur))
+}
+
+function goSlide(i) {
+  const n = VIDEOS.length
+  cur = ((i % n) + n) % n
+  layoutSlides()
+}
+
+function buildCarousel() {
+  if (!stageEl) return
+  stageEl.innerHTML = VIDEOS.map((v, i) => `
+    <div class="slide" data-i="${i}">
+      <img src="${v.img}" alt="" loading="lazy" />
+      <div class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+      <div class="cap">${v.title}</div>
+    </div>`).join('')
+  dotsEl.innerHTML = VIDEOS.map((_, i) => `<i data-i="${i}"></i>`).join('')
+
+  stageEl.querySelectorAll('.slide').forEach((el) => {
+    el.addEventListener('click', () => {
+      const i = Number(el.dataset.i)
+      if (i === cur) openPlayer(i)
+      else goSlide(i)
+    })
+  })
+  dotsEl.querySelectorAll('i').forEach((d) => {
+    d.addEventListener('click', () => goSlide(Number(d.dataset.i)))
+  })
+  layoutSlides()
+}
+
+$('navPrev').addEventListener('click', () => goSlide(cur - 1))
+$('navNext').addEventListener('click', () => goSlide(cur + 1))
+buildCarousel()
+
+// 轮播区前景装饰
+;(function () {
+  const sc = new URLSearchParams(location.search).get('sharecode') || ''
+  const art = document.getElementById('heroArt')
+  if (art) art.src = '/img/hero.png' + (sc ? '?sharecode=' + encodeURIComponent(sc) : '')
+})()
+</script>
+</body>
+</html>
