@@ -735,16 +735,16 @@ const asset = (p) => p + (sc() ? '?sharecode=' + encodeURIComponent(sc()) : '')
 // 素材挂载
 ;(function mountArt() {
   const map = {
-    logoImg: '/img/logo.png',
-    icoApp: '/img/icons/app.png',
-    icoWeb: '/img/icons/web.png',
-    icoChat: '/img/icons/chat.png',
-    icoTieba: '/img/icons/tieba.png',
-    icoChannel: '/img/icons/channel.png',
-    fig1: '/img/figures/f1.png',
-    fig2: '/img/figures/f2.png',
-    fig3: '/img/figures/f3.png',
-    fig4: '/img/figures/f4.png',
+    logoImg: 'img/logo.png',
+    icoApp: 'img/icons/app.png',
+    icoWeb: 'img/icons/web.png',
+    icoChat: 'img/icons/chat.png',
+    icoTieba: 'img/icons/tieba.png',
+    icoChannel: 'img/icons/channel.png',
+    fig1: 'img/figures/f1.png',
+    fig2: 'img/figures/f2.png',
+    fig3: 'img/figures/f3.png',
+    fig4: 'img/figures/f4.png',
   }
   for (const id in map) {
     const el = document.getElementById(id)
@@ -796,7 +796,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
 // ---------- 视频轮播 ----------
 const VIDEOS = [
   {
-    img: '/img/covers/c1.jpg',
+    img: 'img/covers/c1.jpg',
     title: '【重装上阵】外挂风暴的避风港 —— 绿玩营地开张！',
     bvid: 'BV1ADam64ExT',
     aid: 117369846499814,
@@ -804,7 +804,7 @@ const VIDEOS = [
     url: 'https://www.bilibili.com/video/BV1ADam64ExT',
   },
   {
-    img: '/img/covers/c2.jpg',
+    img: 'img/covers/c2.jpg',
     title: '被外挂骚扰？欢迎来到绿玩营地！',
     bvid: 'BV1Y4a16PEA8',
     aid: 117369343052432,
@@ -812,7 +812,7 @@ const VIDEOS = [
     url: 'https://www.bilibili.com/video/BV1Y4a16PEA8',
   },
   {
-    img: '/img/covers/c3.jpg',
+    img: 'img/covers/c3.jpg',
     title: '关于虫子绿玩群主滑稽王是否开挂一事',
     bvid: 'BV186Jq6uEv5',
     aid: 117457607988917,
@@ -936,7 +936,7 @@ buildCarousel()
 ;(function () {
   const sc = new URLSearchParams(location.search).get('sharecode') || ''
   const art = document.getElementById('heroArt')
-  if (art) art.src = '/img/hero.png' + (sc ? '?sharecode=' + encodeURIComponent(sc) : '')
+  if (art) art.src = 'img/hero.png' + (sc ? '?sharecode=' + encodeURIComponent(sc) : '')
 })()
 </script>
 </body>
