@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>营地总纲 · 重装绿玩营地</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<style>
+  :root {
+    --text: #1B1D24;
+    --muted: #5C6070;
+    --faint: #8C90A0;
+    --serif: "Songti SC", "STSong", "Noto Serif SC", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    color: var(--text);
+    background-color: #DDE3EA;
+    background-image: url('/img/site-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 20px 80px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(246, 248, 252, .82) 0%, rgba(244, 247, 251, .78) 40%, rgba(240, 244, 250, .86) 100%);
+  }
+
+  .wrap { max-width: 680px; margin: 0 auto; }
+
+  .topbar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 26px 0 18px;
+  }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 12.5px; color: var(--muted); text-decoration: none;
+    background: rgba(255, 255, 255, .62);
+    border: 1px solid rgba(255, 255, 255, .8);
+    backdrop-filter: blur(16px) saturate(1.6);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 2px 8px rgba(20, 20, 40, .05);
+    transition: transform .32s var(--ease), background .32s;
+  }
+  .back:hover { transform: translateX(-2px); background: rgba(255, 255, 255, .8); }
+  .back svg {
+    width: 13px; height: 13px; fill: none; stroke: currentColor;
+    stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .doc {
+    background: rgba(255, 255, 255, .66);
+    border: 1px solid rgba(255, 255, 255, .82);
+    border-radius: 20px;
+    padding: 52px 48px 46px;
+    backdrop-filter: blur(26px) saturate(1.7);
+    -webkit-backdrop-filter: blur(26px) saturate(1.7);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .96),
+      inset 0 -1px 0 rgba(255, 255, 255, .4),
+      0 2px 8px rgba(20, 20, 40, .04),
+      0 24px 60px rgba(20, 20, 40, .09);
+  }
+
+  .kicker {
+    display: block;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .22em;
+    color: var(--faint); text-transform: uppercase; margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: 32px; font-weight: 600; letter-spacing: .04em;
+    margin: 0 0 8px; line-height: 1.4;
+  }
+  .sub {
+    font-size: 13px; color: var(--muted); letter-spacing: .06em;
+    margin: 0 0 30px;
+  }
+  .hr {
+    height: 1px; margin: 0 0 34px;
+    background: linear-gradient(90deg, rgba(20, 20, 35, .18), rgba(20, 20, 35, .06) 60%, transparent);
+  }
+
+  p {
+    font-size: 15.5px; line-height: 2.05;
+    margin: 0 0 6px;
+    color: #23262F;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    text-indent: 2em;
+  }
+  p:last-of-type { margin-bottom: 0; }
+
+  p.lead {
+    font-family: var(--serif);
+    font-size: 17px; line-height: 1.95;
+    color: #14161C;
+    margin-bottom: 14px;
+  }
+
+  .end {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 40px; padding-top: 26px;
+    border-top: 1px solid rgba(20, 20, 35, .08);
+  }
+  .end .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #2FA85F; flex: 0 0 auto;
+  }
+  .end span { font-size: 12px; color: var(--faint); letter-spacing: .08em; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 12px 56px; }
+    .doc { padding: 34px 22px 30px; border-radius: 16px; }
+    h1 { font-size: 24px; }
+    p { font-size: 14.5px; line-height: 1.95; margin-bottom: 18px; }
+    p.lead { font-size: 15.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg>
+      <span>返回</span>
+    </a>
+  </div>
+
+  <article class="doc">
+    <span class="kicker">CHARTER</span>
+    <h1>重装上阵绿色玩家营地总纲</h1>
+    <p class="sub">重装上阵绿色玩家营地，服务于「反对外挂，反对破坏公平游戏体验」的理念。</p>
+    <div class="hr"></div>
+
+    <p class="lead">能公平地参与到游戏当中，是每个玩家应有的权利，而对游戏公平体验环境的维护，是让这一权利真正落实到每一位玩家身上的必要前提。而当前的重装上阵由于官方监管失能，破坏游戏公平体验者层出不穷，这些人对于游戏公平体验环境的破坏，正在篡改这个游戏原本的面貌；他们攫夺广大游戏玩家的游戏体验，以此来满足私欲，更或是要以此中饱私囊，他们的行为，正在让这个游戏变为他们的天下，妄想让那些丑恶的行径成为这个游戏的主宰。但是，我们还热爱着这个游戏的玩家，坚持正常游戏的玩家，想要公平游玩的玩家，不会是任由他们宰割的鱼肉！</p>
+
+    <p>我们认为，一切仍然坚持、想要去坚持「反对外挂，反对破坏公平游戏体验」的玩家应当团结起来，以我们的行动去维护本就属于我们的游戏环境。一旦我们展现出足够的凝聚力，能不再任由他们宰割，将环境的主导权重新掌握在我们自己手中，这种行为将会是最有力的抵抗。因此，我们决定创立重装上阵绿色玩家营地。</p>
+
+    <p>为了维护与壮大重装上阵绿色玩家营地，我们愿意吸收一切能够在重装上阵绿色玩家营地中坚持「反对外挂，反对破坏公平游戏体验」的玩家。纵使在别的问题上我们可能有所分歧，纵使在别的事务上我们可能有所冲突，但在「反对外挂，反对破坏公平游戏体验」这件事上，我们将站在同一战线，共同用我们的力量维护游戏环境。</p>
+
+    <p>我们不追究过往的破坏游戏的行为，只要之后不再犯，仍可以正常参与和游玩。但我们要求对于过往破坏游戏行为的积极改正：首先是不再犯，然后是若有人就以往破坏游戏行为对这些玩家进行清算，要求积极认错、道歉。</p>
+
+    <p>同时，若是在群内再次违规，或者是再在群内被举报踢出，便将被加入重装上阵绿色玩家营地的黑名单，不再欢迎这些玩家进入。</p>
+
+    <p>至此，希望广大玩家能为重装上阵绿色玩家营地的发展注入一份力量。在这游戏环境濒临崩溃的时期，在最低限度的底线之上，保持团结，夺回属于我们的游戏体验！</p>
+
+    <div class="end">
+      <i class="dot"></i>
+      <span>重装上阵绿色玩家营地</span>
+    </div>
+  </article>
+</div>
+<script>
+  // 静态站：背景图走相对路径
+  document.body.style.backgroundImage = "url('img/site-bg.jpg')"
+</script>
+</body>
+</html>
