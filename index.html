@@ -783,21 +783,35 @@ const asset = (p) => p + (sc() ? '?sharecode=' + encodeURIComponent(sc()) : '')
 
 // 素材挂载
 ;(function mountArt() {
+  // 多源兜底：主 CDN 挂了自动切下一个
+  const BASES = [
+    'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+    'https://fastly.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+    'https://gcore.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+    'https://astracraftcn.github.io/czszlvwan/',
+  ]
   const map = {
-    logoImg: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/logo.png',
-    icoApp: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/icons/app.png',
-    icoWeb: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/icons/web.png',
-    icoChat: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/icons/chat.png',
-    icoTieba: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/icons/tieba.png',
-    icoChannel: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/icons/channel.png',
-    fig1: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/figures/f1.png',
-    fig2: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/figures/f2.png',
-    fig3: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/figures/f3.png',
-    fig4: 'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/figures/f4.png',
+    logoImg: 'img/logo.png',
+    icoApp: 'img/icons/app.png',
+    icoWeb: 'img/icons/web.png',
+    icoChat: 'img/icons/chat.png',
+    icoTieba: 'img/icons/tieba.png',
+    icoChannel: 'img/icons/channel.png',
+    fig1: 'img/figures/f1.png',
+    fig2: 'img/figures/f2.png',
+    fig3: 'img/figures/f3.png',
+    fig4: 'img/figures/f4.png',
   }
   for (const id in map) {
     const el = document.getElementById(id)
-    if (el) el.src = asset(map[id])
+    if (!el) continue
+    const path = map[id]
+    let i = 0
+    el.addEventListener('error', function onErr() {
+      i += 1
+      if (i < BASES.length) el.src = BASES[i] + path
+    })
+    el.src = BASES[0] + path
   }
 })()
 
