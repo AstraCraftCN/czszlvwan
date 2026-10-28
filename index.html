@@ -35,6 +35,8 @@
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-font-smoothing: antialiased; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+
   body {
     margin: 0; min-height: 100vh; color: var(--text);
     background:
@@ -590,11 +592,13 @@
   .f4 { right: -12%; bottom: -48px; }
 
   @media (max-width: 900px) {
-    .fig { width: clamp(104px, 26vw, 148px); opacity: .55; }
-    .f1 { left: -24%; top: -18px; }
-    .f2 { right: -22%; top: -12px; }
-    .f3 { left: -22%; bottom: -16px; }
-    .f4 { right: -24%; bottom: -14px; }
+    /* 两侧留出安全边距，立绘探边也顶不出视口 */
+    main { padding: 0 18px; box-sizing: border-box; }
+    .fig { width: clamp(92px, 22vw, 128px); opacity: .5; }
+    .f1 { left: -3%; top: -14px; }
+    .f2 { right: -3%; top: -10px; }
+    .f3 { left: -3%; bottom: -12px; }
+    .f4 { right: -3%; bottom: -10px; }
   }
 </style>
 </head>
