@@ -573,7 +573,8 @@
     .arrow svg { width: 17px; height: 17px; }
     .dots { margin-top: 20px; gap: 9px; }
     .dots i { width: 7px; height: 7px; }
-    footer { margin-top: 40px; font-size: 12.5px; }
+    /* 下方两个立绘会探到卡片底下，给页脚留出避让空间 */
+    footer { margin-top: 96px; font-size: 12.5px; }
     .rule { margin-bottom: 32px; }
   }
 
@@ -594,11 +595,26 @@
   @media (max-width: 900px) {
     /* 两侧留出安全边距，立绘探边也顶不出视口 */
     main { padding: 0 18px; box-sizing: border-box; }
-    .fig { width: clamp(92px, 22vw, 128px); opacity: .5; }
-    .f1 { left: -3%; top: -14px; }
-    .f2 { right: -3%; top: -10px; }
-    .f3 { left: -3%; bottom: -12px; }
-    .f4 { right: -3%; bottom: -10px; }
+    /* 窄屏也显示立绘（原先只在 >=980px 显示，手机上完全看不到） */
+    .fig {
+      display: block;
+      width: clamp(112px, 30vw, 152px);
+      opacity: .58;
+    }
+    /* 横向最多探 14px（padding 18px 兜得住），纵向可以大胆探 */
+    .f1 { left: -14px; top: -78px; }
+    .f2 { right: -14px; top: -66px; }
+    .f3 { left: -14px; bottom: -72px; }
+    .f4 { right: -14px; bottom: -60px; }
+  }
+
+  /* 900~980 之间同样要有立绘 */
+  @media (min-width: 901px) and (max-width: 979px) {
+    .fig {
+      display: block;
+      width: clamp(126px, 14vw, 190px);
+      opacity: .7;
+    }
   }
 </style>
 </head>
@@ -807,7 +823,7 @@ const asset = (p) => p + (sc() ? '?sharecode=' + encodeURIComponent(sc()) : '')
     if (!el) continue
     const path = map[id]
     let i = 0
-    el.addEventListener('error', function onErr() {
+    el.addEventListener('error', function () {
       i += 1
       if (i < BASES.length) el.src = BASES[i] + path
     })
