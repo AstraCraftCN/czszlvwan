@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>营地总纲 · 重装绿玩营地</title>
-<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="icon" type="image/png" href="favicon.png" />
 <style>
   :root {
     --text: #1B1D24;
@@ -13,57 +13,57 @@
     --serif: "Songti SC", "STSong", "Noto Serif SC", Georgia, serif;
     --mono: ui-monospace, "SF Mono", Menlo, monospace;
     --ease: cubic-bezier(.2, .8, .2, 1);
+    --ok: #2F9E68;
+    --warn: #C77D24;
+    --bad: #C0475A;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
     min-height: 100vh;
     color: var(--text);
-    /* 和官网首页同一套渐变底：不依赖任何图片，任何环境都显示得出来 */
-    background:
-      radial-gradient(62vw 62vw at 4% -10%, rgba(96, 170, 255, .34), transparent 62%),
-      radial-gradient(54vw 54vw at 104% 24%, rgba(140, 100, 255, .28), transparent 64%),
-      radial-gradient(48vw 48vw at 18% 112%, rgba(96, 190, 255, .22), transparent 66%),
-      #F6F6F7;
+    background-color: #DDE3EA;
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     padding: 0 20px 80px;
     overflow-x: hidden;
   }
+  /* 压暗背景照片，保证玻璃卡片上的字清楚 */
   body::before {
     content: ''; position: fixed; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, .1) 100%);
+    background: linear-gradient(180deg, rgba(246, 248, 252, .8) 0%, rgba(244, 247, 251, .74) 40%, rgba(240, 244, 250, .84) 100%);
   }
 
-  .wrap { max-width: 680px; margin: 0 auto; }
+  .wrap { max-width: 700px; margin: 0 auto; }
 
-  .topbar {
-    display: flex; align-items: center; gap: 14px;
-    padding: 26px 0 18px;
-  }
+  .topbar { display: flex; align-items: center; padding: 26px 0 18px; }
   .back {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 14px; border-radius: 999px;
     font-size: 12.5px; color: var(--muted); text-decoration: none;
     background: rgba(255, 255, 255, .62);
-    border: 1px solid rgba(255, 255, 255, .8);
+    border: 1px solid rgba(255, 255, 255, .82);
     backdrop-filter: blur(16px) saturate(1.6);
     -webkit-backdrop-filter: blur(16px) saturate(1.6);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 2px 8px rgba(20, 20, 40, .05);
     transition: transform .32s var(--ease), background .32s;
   }
-  .back:hover { transform: translateX(-2px); background: rgba(255, 255, 255, .8); }
+  .back:hover { transform: translateX(-2px); background: rgba(255, 255, 255, .82); }
   .back svg {
     width: 13px; height: 13px; fill: none; stroke: currentColor;
     stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
   }
 
+  /* 主卡片：磨砂玻璃 */
   .doc {
-    background: rgba(255, 255, 255, .66);
-    border: 1px solid rgba(255, 255, 255, .9);
+    background: rgba(255, 255, 255, .7);
+    border: 1px solid rgba(255, 255, 255, .88);
     border-radius: 20px;
-    padding: 52px 48px 46px;
+    padding: 48px 44px 42px;
     backdrop-filter: blur(28px) saturate(1.75);
     -webkit-backdrop-filter: blur(28px) saturate(1.75);
     box-shadow:
@@ -73,88 +73,194 @@
       0 24px 60px rgba(20, 20, 40, .1);
   }
 
-  .kicker {
-    display: block;
-    font-family: var(--mono); font-size: 11px; letter-spacing: .22em;
-    color: var(--faint); text-transform: uppercase; margin-bottom: 16px;
+  /* ---- 头部 ---- */
+  .header { padding-bottom: 26px; margin-bottom: 28px; border-bottom: 1px solid rgba(20, 20, 35, .08); }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 13px; border-radius: 999px;
+    background: rgba(47, 158, 104, .1);
+    border: 1px solid rgba(47, 158, 104, .26);
+    margin-bottom: 18px;
   }
-  h1 {
-    font-family: var(--serif);
-    font-size: 32px; font-weight: 600; letter-spacing: .04em;
-    margin: 0 0 8px; line-height: 1.4;
+  .badge i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 6px rgba(47, 158, 104, .6);
   }
-  .sub {
-    font-size: 13px; color: var(--muted); letter-spacing: .06em;
-    margin: 0 0 30px;
-  }
-  .hr {
-    height: 1px; margin: 0 0 34px;
-    background: linear-gradient(90deg, rgba(20, 20, 35, .18), rgba(20, 20, 35, .06) 60%, transparent);
+  .badge span {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    letter-spacing: .22em; color: var(--ok);
   }
 
-  p {
+  h1 {
+    font-family: var(--serif);
+    font-size: 31px; font-weight: 600; letter-spacing: .03em;
+    line-height: 1.42; margin: 0 0 22px;
+  }
+
+  .callout {
+    border-radius: 14px;
+    padding: 16px 18px 16px 20px;
+    background: linear-gradient(100deg, rgba(47, 158, 104, .1), rgba(47, 158, 104, .02) 62%, transparent);
+    border-left: 3px solid var(--ok);
+  }
+  .callout p {
+    margin: 0; font-size: 16.5px; line-height: 1.85;
+    font-weight: 500; color: #23262F;
+  }
+
+  /* ---- 正文 ---- */
+  .body p {
+    margin: 0;
     font-size: 15.5px; line-height: 2.05;
-    margin: 0 0 6px;
     color: #23262F;
     text-align: justify;
     text-justify: inter-ideograph;
-    text-indent: 2em;
-  }
-  p:last-of-type { margin-bottom: 0; }
-
-  p.lead {
-    font-family: var(--serif);
-    font-size: 17px; line-height: 1.95;
-    color: #14161C;
-    margin-bottom: 14px;
   }
 
+  .para {
+    position: relative;
+    padding-left: 46px;
+    margin-bottom: 26px;
+  }
+  .para:last-child { margin-bottom: 0; }
+
+  /* 编号 */
+  .para::before {
+    content: attr(data-index);
+    position: absolute; left: 0; top: 5px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+    letter-spacing: .04em; color: var(--faint);
+  }
+  .para::after {
+    content: ''; position: absolute; left: 15px; top: 27px; bottom: 6px;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(20, 20, 35, .1), transparent);
+  }
+
+  /* 带底色 / 边框的段落 */
+  .para.card {
+    padding: 20px 22px 20px 60px;
+    border-radius: 14px;
+    border: 1px solid rgba(20, 20, 35, .06);
+  }
+  .para.card::after { display: none; }
+  .para.card::before { left: 22px; top: 22px; }
+
+  .para.tone-ok { background: rgba(47, 158, 104, .06); border-color: rgba(47, 158, 104, .18); }
+  .para.tone-warn { background: rgba(199, 125, 36, .06); border-color: rgba(199, 125, 36, .2); border-left: 3px solid rgba(199, 125, 36, .65); }
+  .para.tone-bad { background: rgba(192, 71, 90, .06); border-color: rgba(192, 71, 90, .2); border-left: 3px solid rgba(192, 71, 90, .65); }
+  .para.tone-end {
+    background: linear-gradient(135deg, rgba(47, 158, 104, .1), rgba(47, 158, 104, .03) 70%);
+    border-color: rgba(47, 158, 104, .24);
+    padding: 24px 26px 24px 62px;
+  }
+
+  .para .mark {
+    position: absolute; left: 20px; top: 20px;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .para .mark svg {
+    width: 13px; height: 13px; fill: none; stroke: currentColor;
+    stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .tone-warn .mark { background: rgba(199, 125, 36, .14); color: var(--warn); }
+  .tone-bad .mark { background: rgba(192, 71, 90, .14); color: var(--bad); }
+
+  /* ---- 高亮 ---- */
+  .hl-core {
+    background: rgba(47, 158, 104, .16);
+    border-radius: 4px; padding: 1px 3px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    font-weight: 500;
+  }
+  .hl-underline {
+    text-decoration: underline;
+    text-decoration-color: rgba(47, 158, 104, .55);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .hl-warn { color: var(--warn); font-weight: 600; }
+  .hl-danger { color: var(--bad); font-weight: 600; }
+  .hl-slogan { color: var(--ok); font-weight: 600; }
+
+  /* ---- 页脚 ---- */
   .end {
     display: flex; align-items: center; gap: 10px;
-    margin-top: 40px; padding-top: 26px;
+    margin-top: 36px; padding-top: 22px;
     border-top: 1px solid rgba(20, 20, 35, .08);
   }
   .end .dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: #2FA85F; flex: 0 0 auto;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 8px rgba(47, 158, 104, .55);
+    flex: 0 0 auto;
   }
-  .end span { font-size: 12px; color: var(--faint); letter-spacing: .08em; }
+  .end span { font-size: 12.5px; font-weight: 600; color: var(--ok); letter-spacing: .04em; }
 
   @media (max-width: 640px) {
     body { padding: 0 12px 56px; }
-    .doc { padding: 34px 22px 30px; border-radius: 16px; }
-    h1 { font-size: 24px; }
-    p { font-size: 14.5px; line-height: 1.95; margin-bottom: 18px; }
-    p.lead { font-size: 15.5px; }
+    .doc { padding: 30px 20px 28px; border-radius: 16px; }
+    h1 { font-size: 23px; margin-bottom: 16px; }
+    .callout p { font-size: 15px; }
+    .para { padding-left: 32px; margin-bottom: 22px; }
+    .para::after { left: 11px; top: 24px; }
+    .para::before { font-size: 10.5px; }
+    .para.card, .para.tone-end { padding: 16px 16px 16px 44px; }
+    .para.card::before { left: 16px; top: 18px; }
+    .para .mark { left: 14px; top: 16px; width: 20px; height: 20px; }
+    .body p { font-size: 14.5px; line-height: 1.98; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
-    <a class="back" href="/home.html">
+    <a class="back" href="index.html">
       <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg>
       <span>返回</span>
     </a>
   </div>
 
   <article class="doc">
-    <span class="kicker">CHARTER</span>
-    <h1>重装上阵绿色玩家营地总纲</h1>
-    <p class="sub">重装上阵绿色玩家营地，服务于「反对外挂，反对破坏公平游戏体验」的理念。</p>
-    <div class="hr"></div>
+    <header class="header">
+      <div class="badge"><i></i><span>CHARTER</span></div>
+      <h1>重装上阵绿色玩家营地总纲</h1>
+      <div class="callout">
+        <p>重装上阵绿色玩家营地，服务于<span class="hl-slogan">「反对外挂，反对破坏公平游戏体验」</span>的理念。</p>
+      </div>
+    </header>
 
-    <p class="lead">能公平地参与到游戏当中，是每个玩家应有的权利，而对游戏公平体验环境的维护，是让这一权利真正落实到每一位玩家身上的必要前提。而当前的重装上阵由于官方监管失能，破坏游戏公平体验者层出不穷，这些人对于游戏公平体验环境的破坏，正在篡改这个游戏原本的面貌；他们攫夺广大游戏玩家的游戏体验，以此来满足私欲，更或是要以此中饱私囊，他们的行为，正在让这个游戏变为他们的天下，妄想让那些丑恶的行径成为这个游戏的主宰。但是，我们还热爱着这个游戏的玩家，坚持正常游戏的玩家，想要公平游玩的玩家，不会是任由他们宰割的鱼肉！</p>
+    <div class="body">
+      <div class="para" data-index="01">
+        <p><span class="hl-underline">能公平地参与到游戏当中，是每个玩家应有的权利，而对游戏公平体验环境的维护，是让这一权利真正落实到每一位玩家身上的必要前提。</span>而当前的重装上阵由于<span class="hl-warn">官方监管失能，破坏游戏公平体验者层出不穷</span>，这些人对于游戏公平体验环境的破坏，正在篡改这个游戏原本的面貌；他们攫夺广大游戏玩家的游戏体验，以此来满足私欲，更或是要以此中饱私囊，他们的行为，正在让这个游戏变为他们的天下，妄想让那些丑恶的行径成为这个游戏的主宰。<span class="hl-core">但是，我们还热爱着这个游戏的玩家，坚持正常游戏的玩家，想要公平游玩的玩家，不会是任由他们宰割的鱼肉！</span></p>
+      </div>
 
-    <p>我们认为，一切仍然坚持、想要去坚持「反对外挂，反对破坏公平游戏体验」的玩家应当团结起来，以我们的行动去维护本就属于我们的游戏环境。一旦我们展现出足够的凝聚力，能不再任由他们宰割，将环境的主导权重新掌握在我们自己手中，这种行为将会是最有力的抵抗。因此，我们决定创立重装上阵绿色玩家营地。</p>
+      <div class="para" data-index="02">
+        <p>我们认为，一切仍然坚持、想要去坚持<span class="hl-slogan">「反对外挂，反对破坏公平游戏体验」</span>的玩家<span class="hl-underline">应当团结起来，以我们的行动去维护本就属于我们的游戏环境。</span>一旦我们展现出足够的凝聚力，能不再任由他们宰割，<span class="hl-core">将环境的主导权重新掌握在我们自己手中，这种行为将会是最有力的抵抗。</span>因此，我们决定<span class="hl-core">创立重装上阵绿色玩家营地</span>。</p>
+      </div>
 
-    <p>为了维护与壮大重装上阵绿色玩家营地，我们愿意吸收一切能够在重装上阵绿色玩家营地中坚持「反对外挂，反对破坏公平游戏体验」的玩家。纵使在别的问题上我们可能有所分歧，纵使在别的事务上我们可能有所冲突，但在「反对外挂，反对破坏公平游戏体验」这件事上，我们将站在同一战线，共同用我们的力量维护游戏环境。</p>
+      <div class="para card tone-ok" data-index="03">
+        <p>为了维护与壮大重装上阵绿色玩家营地，我们愿意<span class="hl-underline">吸收一切能够在重装上阵绿色玩家营地中坚持</span><span class="hl-slogan">「反对外挂，反对破坏公平游戏体验」</span><span class="hl-underline">的玩家</span>。纵使在别的问题上我们可能有所分歧，纵使在别的事务上我们可能有所冲突，但在<span class="hl-slogan">「反对外挂，反对破坏公平游戏体验」</span>这件事上，<span class="hl-core">我们将站在同一战线，共同用我们的力量维护游戏环境。</span></p>
+      </div>
 
-    <p>我们不追究过往的破坏游戏的行为，只要之后不再犯，仍可以正常参与和游玩。但我们要求对于过往破坏游戏行为的积极改正：首先是不再犯，然后是若有人就以往破坏游戏行为对这些玩家进行清算，要求积极认错、道歉。</p>
+      <div class="para card tone-warn" data-index="04">
+        <span class="mark"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 3l7.5 4v5c0 4.6-3.2 8.7-7.5 9.8C7.7 20.7 4.5 16.6 4.5 12V7z"/></svg></span>
+        <p>我们<span class="hl-core">不追究过往的破坏游戏的行为，只要之后不再犯，仍可以正常参与和游玩。</span>但我们要求对于过往破坏游戏行为的<span class="hl-warn">积极改正：首先不再犯</span>，然后是若有人以往破坏游戏行为对这些玩家进行清算，<span class="hl-warn">要求积极认错、道歉。</span></p>
+      </div>
 
-    <p>同时，若是在群内再次违规，或者是再在群内被举报踢出，便将被加入重装上阵绿色玩家营地的黑名单，不再欢迎这些玩家进入。</p>
+      <div class="para card tone-bad" data-index="05">
+        <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 8v4.5"/><path d="M12 16.5h.01"/><path d="M12 3.5 21 19H3z"/></svg></span>
+        <p>同时，若是在群内<span class="hl-danger">再次违规</span>，或者是再在群内<span class="hl-danger">被举报踢出</span>，便将被<span class="hl-danger">加入重装上阵绿色玩家营地的黑名单，不再欢迎这些玩家进入。</span></p>
+      </div>
 
-    <p>至此，希望广大玩家能为重装上阵绿色玩家营地的发展注入一份力量。在这游戏环境濒临崩溃的时期，在最低限度的底线之上，保持团结，夺回属于我们的游戏体验！</p>
+      <div class="para card tone-end" data-index="06">
+        <p>至此，希望广大玩家能为重装上阵绿色玩家营地的发展注入一份力量。在这游戏环境濒临崩溃的时期，<span class="hl-core">在最低限度的底线之上，保持团结，夺回属于我们的游戏体验！</span></p>
+      </div>
+    </div>
 
     <div class="end">
       <i class="dot"></i>
@@ -162,5 +268,28 @@
     </div>
   </article>
 </div>
+<script>
+  // 背景图多源兜底
+  (function () {
+    var BASES = [
+      'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+      'https://gcore.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+      'https://astracraftcn.github.io/czszlvwan/'
+    ]
+    var i = 0
+    function tryBg() {
+      var probe = new Image()
+      probe.onload = function () {
+        document.body.style.backgroundImage = "url('" + BASES[i] + "img/site-bg.jpg')"
+      }
+      probe.onerror = function () {
+        i += 1
+        if (i < BASES.length) tryBg()
+      }
+      probe.src = BASES[i] + 'img/site-bg.jpg'
+    }
+    tryBg()
+  })()
+</script>
 </body>
 </html>
