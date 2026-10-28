@@ -161,8 +161,27 @@
   </article>
 </div>
 <script>
-  // 静态站：背景图走相对路径
-  document.body.style.backgroundImage = "url('https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/img/site-bg.jpg')"
+  // 背景图多源兜底
+  (function () {
+    var BASES = [
+      'https://cdn.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+      'https://gcore.jsdelivr.net/gh/AstraCraftCN/czszlvwan@main/',
+      'https://astracraftcn.github.io/czszlvwan/'
+    ]
+    var i = 0
+    function tryBg() {
+      var probe = new Image()
+      probe.onload = function () {
+        document.body.style.backgroundImage = "url('" + BASES[i] + "img/site-bg.jpg')"
+      }
+      probe.onerror = function () {
+        i += 1
+        if (i < BASES.length) tryBg()
+      }
+      probe.src = BASES[i] + 'img/site-bg.jpg'
+    }
+    tryBg()
+  })()
 </script>
 </body>
 </html>
